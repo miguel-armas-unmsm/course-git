@@ -1,0 +1,236 @@
+CURSO GIT
+
+LÍNEA DE COMANDOS
+==============================================
+
+$ pwd --> ruta de usuario
+	/ --> raíz del disco
+	~ --> ruta de usuario
+
+ctrl + l --> limpiar consola 
+
+Nota: La estructura de archivos es diferente en LINUX, WINDOWS y MAC
+Nota: En windows no se consideran las mayúsculas para navegar entre carpetas. A diferencia de LINUX y MAC
+Nota: Es más cómodo trabajar desde la ruta de usuario ~
+
+TAB --> autocompleta
+
+$ cd name/ --> cambio de carpeta 
+$ mkdir name --> crea carpeta
+$ touch name.txt --> crea archivo vacio
+$ ls --> listar archivos dentro de la carpeta
+
+$ ls -al --> listar archivos ocultos y no ocultos en notación LINUX 
+$ cd . --> misma carpeta
+$ cd .. --> carpeta anterior 
+$ cd ~/.ssh/
+
+
+$ cat name.txt --> muestra contenido del archivo
+$ history --> historial de comandos escritos hasta ahora
+$ !72 --> repetir el comando nro. 72
+$ rm name.txt --> eliminar archivo
+
+CONFIGURACIÓN
+==============================================
+$ git config -l --> mostrar configuraciones
+$ git config --global user.email "miemail@email.com"
+
+
+CREACIÓN DEL REPOSITORIO
+==============================================
+$ git init
+$ git status
+$ git add filename.txt --> enviar el archivo filename.txt al staging area
+$ git add . --> enviar todos los archivos al staging area
+$ git rm --cached filename.txt --> enviar archivo filename.txt al working directory
+$ git commit -m "message" --> enviar archivos del staging area al git repository
+$ git log filename.txt --> muestra el historial de cambios del archivo
+
+DIFERENCIA ENTRE ARCHIVOS
+==============================================
+$ git show --> muestra cómo estuvo antes y cómo está ahora
+$ git commit --> Editor de texto VIM --> EDITAR: esc seguido de 'i' --> GUARDAR: esc seguido de shift + z + z
+$ git diff commit-id1 commit-id2 --> muestra las diferencias entre un commit y otro 
+
+DIRECTORY-STAGING-REPOSITORY
+==============================================
+working directory: carpeta de trabajo donde están los archivos sin rastrear (untracked)
+staging area: espacio en memoria ram donde se guaradan los cambios (tracked)
+repositorio: carpeta /.git en el que están todos los cambios al final del proyecto
+
+VERSIONES
+==============================================
+$ git reset commit-id --hard --> volver todo a una versión anterior 
+$ git reset commit-id --soft --> volver a la versión a anterior, pero manteniendo el staging area
+$ git log --stat --> ver los cambios específicos hechos en cada commit
+$ git checkout commit-id filename.txt --> regresar al estado del commit el archivo
+
+COMBINAR RAMAS
+==============================================
+Head: La cabecera o HEAD representan la rama y el commit de esa rama donde estamos trabajando. 
+Por defecto, esta cabecera aparecerá en el último commit de nuestra rama principal.
+
+$ git pull --> funciona como $ git fetch + $ git merge
+$ git commit -am "" --> hace commit a los archivos que se hicieron add . previamente
+$ git merge --> crea nuevo commit con la combinación de dos ramas
+
+
+REPOSITORIO REMOTO Y FORKS
+==============================================
+$ git remote add origin URL
+$ git remote --> Verificar que la URL se haya guardado correctamente
+$ git remote -v --> Ver la url del repositorio asociado
+
+Cuando trabajas en un proyecto que existe en diferentes repositorios remotos (normalmente a causa de un fork)
+es muy probable que desees poder trabajar con ambos repositorios, para ésto puedes crear un remoto adicional
+desde consola.
+
+$ git remote add <nombre_del_remoto> <url_del_remoto>
+$ git remote upstream https://github.com/freddier/hyperblog
+
+Al crear un remoto adicional podremos, hacer pull desde el nuevo origen (en caso de tener permisos podremos 
+hacer fetch y push)
+
+$ git pull <remoto> <rama>
+$ git pull upstream master
+
+Éste pull nos traerá los cambios del remoto, por lo que se estará al día en el proyecto, el flujo de trabajo
+cambia, en adelante se estará trabajando haciendo pull desde el upstream y push al origin para pasar a hacer
+pull request.
+
+$ git pull upstream master
+$ git push origin master
+
+Traer la versión del repositorio remoto y hacer merge para crear un commit con los archivos de ambas partes.
+Podemos usar git fetch y git merge o solo el git pull con el flag --allow-unrelated-histories:
+$ git pull origin master --allow-unrelated-histories
+
+$ git push origin master --> subir cambios al repositorio remoto
+
+
+CLAVE SSH
+==============================================
+Se sugiere ubicarse en la ruta de usuario.
+Dejar directorio por defecto. 
+La passphrase: contraseña con espacios para más seguridad
+Generará una llave pública y otra privada.
+Una vez generada las llavesse debe agregar al entorno (S.O.)
+La llave pública se añade en GitHub.
+
+$ ssh-keygen -t rsa -b 5096 -C "miemail.com"
+$ eval $(ssh-agent -s) --> verificar que el servidor de llaves esté corriendo
+$ ssh-add ~/.ssh/id_rsa --> añadir clave privada al usuario del entorno local
+
+Observación: Si tienes 3 laptops, tienes que tener 3 llaves (privada y pública) conectadas al repositorio
+por cada computadora
+
+$ git remote set-url origin <url-ssh> --> Cambiar la url (de http -> ssh) del repositorio asociado a origin
+$ git pull origin main --> traer cambios de la rama main
+
+
+
+TAGS Y VERSIONES EN GIT Y GITHUB
+==============================================
+$ git log --all --graph --> ver cómo se han ido fusionando las ramas
+$ git log --all --graph --decorate --oneline --> ver cómo se han ido fusionando las ramas más visual
+$ alias tree="git log --all --graph --decorate --oneline" --> crear alias para los comandos
+
+$ git tag -a v0.1 -m "Primera entrega del curso" <commit-id> --> crear tag o release
+$ git tag --> ver tags
+$ git show-ref --tags --> ver detalle del tag por commit
+$ history --> vemos que commit-id diferente
+
+$ git status --> ¿hay algo para enviar?
+$ git push origin --tags --> subir tags al repositorio remoto
+$ git tag -d <tag-name> --> eliminar tag local
+$ git push origin :refs/tags/<tag-name> --> eliminar tag remoto
+
+RAMAS
+==============================================
+$ git show-branch
+$ git show-branch --all
+$ gitk --> mostrar la historia de ramas en una plataforma visual 
+
+// posicionado sobre la rama que absorve (main), hacer merge (absorver) a la otra rama
+$ git merge <branch-name>
+$ git branch -D <branch-name> eliminar rama
+$ git branch -r --> ver ramas remotas
+$ git branch -a --> ver todas las ramas (locales y remotas)
+
+
+
+FORKS
+==============================================
+Es la manera en que se genera una copia de un repositorio para hacerle pull request cuando no eres colaborador
+
+
+REBASE
+==============================================
+El comando rebase es una mala práctica, nunca se debe usar. Con rebase puedes recoger todos los cambios 
+confirmados en una rama y ponerlos sobre otra.
+
+# Cambiamos a la rama que queremos traer los cambios
+$ git checkout experiment
+
+# Aplicamos rebase para traer los cambios de la rama que queremos 
+$ git rebase master
+
+GIT STASH
+==============================================
+$ git stash --> guardar cambios en el temporal
+$ git stash list --> mostrar lista de WIP (work in progress)
+
+Nota: Si sacas los WIP que fueron stasheados en otra rama probablemente generen conflictos. Asegúrate de en 
+qué rama los sacas.
+
+$ git stash pop --> sacar cambios del stash 
+$ git stash branch <branch-name> --> salvar los cambios del stash en una rama aparte
+$ git stash drop --> eliminar el stash
+
+
+GIT CLEAN
+==============================================
+$ git clean --dry-run --> te dice los archivos que se borrarán que no forman parte importante del proyecto
+$ git clean -f --> borra los archivos que se obtienen al ejecutar $ git clean --dry-run
+
+GIT CHERRY PICK
+==============================================
+cherry pick permite traer una confirmación (commit) de otra rama y modificar la historia de la rama actual
+$ git log --oneline --> para obtener el commit-id o hash
+$ git cherry-pick <commit-id> --> traer commit de otra rama
+
+
+GIT AMEND
+==============================================
+Se utiliza cuando quiere modificarse el último commit más reciente y cominar los cambios en lugar de crear
+un nuevo commit.
+$ git commit --amend
+$ git commit --ammend --no-edit --> para conservar el mensaje del commit original
+
+GIT RESET Y REFLOG
+==============================================
+$ git reflog --> te muestra los HEAD del historial de cambios hasta ahora (copiamos el commit-id o hash)
+$ git reset --hard <commit-id> --> te devuelve a la confirmación (commit) del hisotrial que indiquemos
+
+GIT GREP Y LOG
+==============================================
+$ git grep <ocurrencia> --> busca la ocurrencia en el repositorio
+$ git grep -n <ocurrencia> --> indica el archivo y la linea donde se da la ocurrencia
+$ git grep -c <ocurrencia> --> indica la cantidad de veces que se da la ocurrencia en un archivo
+$ git grep -c "<p>" --> entre comillas para evitar error de sintaxis
+
+$ git log -S <ocurrencia-message> --> busca los commits por la ocurrencia de la palabra en los mensajes
+
+COMANDOS Y RECURSOS COLABORATIVOS
+==============================================
+git shortlog: Ver cuantos commits a hecho los miembros del equipo
+git shortlog -sn: Las personas que han hecho ciertos commits
+git shortlog -sn --all: Todos los commits (también los borrados)
+git shortlog -sn --all --no-merges: muestra las estadisticas de los comigs del repositorio donde estoy
+git config --global alias.stats “shortlog -sn --all --no-merges”: configura el comando “shortlog -sn --all --no-merges” en un Alias en las configuraciones globales de git del pc
+git blame -c blogpost.html: Muestra quien ha hecho cambios en dicho archivo identado
+git blame --help: Muestra en el navegador el uso del comando
+git blame archivo -L 35, 60 -c: Muestra quien escribio el codigo con informacion de la linea 35 a la 60, EJ: git blame css/estilos.css -L 35, 60 -c
+git branch -r: Muestra las Ramas remotas de GitHub
+git branch -a: Muestra todas las Ramas del repo y remotas de GitHub
