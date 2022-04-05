@@ -1,8 +1,27 @@
-# Curso de GIT SCM y GitHub
+Curso de GIT SCM y GitHub
+======================
 
-[TOC]
+- [1. Línea de comandos](#1-línea-de-comandos)
+- [2. Configuraciones de GIT SCM](#2-configuraciones-de-git-scm)
+- [3. Working directory - Staging area - Repository](#3-working-directory-staging-area-repository)
+- [4. Creación del repositorio](#4-creación-del-repositorio)
+- [5. Diferencia entre archivos](#5-diferencia-entre-archivos)
+- [6. Versiones](#6-versiones)
+- [7. Combinar ramas](#7-combinar-ramas)
+- [8. Repositorio remoto y FORKS](#8-repositorios-remotos-y-forks)
+- [9. Clave SSH](#9-clave-ssh)
+- [10. Tags y versiones en GIT SCM y GitHub](#10-tags-y-versiones-en-git-scm-y-github)
+- [11. Ramas](#11-ramas)
+- [12. Rebase](#12-rebase)
+- [13. Git Stash](#13-git-stash)
+- [14. Git Clean](#14-git-clean)
+- [15. Git Cherry Pick](#15-git-cherry-pick)
+- [16. Git Amend](#16-git-amend)
+- [17. Git Reset y Reflog](#17-git-reset-y-reflog)
+- [18. Git Grep y Log](#18-git-grep-y-log)
+- [19. Comandos y recursos colaborativos](#19-comandos-y-recursos-colaborativos)
 
-## Línea de comandos
+## 1. Línea de comandos
 - `$ pwd` : Ir a la ruta del usuario.
 
 > La raíz del disco se especifica con "/" y la ruta del usuario con "~".
@@ -27,16 +46,16 @@
 - `$ !11` : Ejecutar el comando número 11 del historial de comandos.
 - `$ rm <filename.txt>` : Eliminar el archivo *filename.txt*.
 
-## Configuraciones de GIT SCM
+## 2. Configuraciones de GIT SCM
 - `$ git config -l` : Mostrar las configuraciones de GIT.
 - `$ git config --global user.email "<my-email>"` : Editar email.
 
-## Working directory - Staging area - Repository
+## 3. Working directory - Staging area - Repository
 > - **Working directory** : Carpeta de trabajo donde están los archivos sin rastrear (untracked).
 - **Staging area** : Espacio en memoria ram donde se guaradan los cambios (tracked).
 - **Repository** : carpeta /.git en el que están todos los cambios al final del proyecto.
 
-## Creación del repositorio
+## 4. Creación del repositorio
 - `$ git init`
 - `$ git status`
 - `$ git add <filename.txt>` : Enviar el archivo *filename.txt* al staging area.
@@ -52,23 +71,23 @@
 - `$ git commit`: Realizar un commit con mensaje manual
 - `$ git log <filename.txt>` : Mostrar el historial de cambios del archivo *filename.txt*.
 
-## Diferencia entre archivos
+## 5. Diferencia entre archivos
 - `$ git show` : Mostrar cómo estuvo antes y cómo está ahora.
 - `$ git diff <commit-id1> <commit-id2>` : Mostrar las diferencias entre un commit y otro.
 
-## Versiones
+## 6. Versiones
 - `$ git reset <commit-id> --hard` : Volver a la versión anterior.
 - `$ git reset <commit-id> --soft` : Volver a la versión anterior, pero manteniendo el staging area.
 - `$ git log --stat` : Ver los cambios específicos hechos en cada commit.
 - `$ git checkout <commit-id> <filename.txt>` : Regresar el archivo al estado del commit.
 
-## Combinar ramas
+## 7. Combinar ramas
 > La cabecera o **HEAD** representa la rama y el commit de esa rama donde estamos trabajando. Por defecto, esta cabecera aparecerá en el último commit de nuestra rama principal.
 
 - `$ git pull` : Funciona como `$ git fetch` + `$ git merge`
 - `$ git merge <absorbed-branch>`: Crear nuevo commit con la combinación de dos ramas.
 
-## Repositorio remoto y FORKS
+## 8. Repositorio remoto y FORKS
 - `$ git remote add origin <remote-repository-url>`
 - `$ git remote` : Verificar que la URL se haya guardado correctamente.
 - `$ git remote -v` :Mostrar la url del repositorio remoto.
@@ -94,7 +113,7 @@ $ git push origin master
 - `$ git pull origin <branch-name> --allow-unrelated-histories`
 - `$ git push origin <branch-name>`
 
-## Clave SSH
+## 9. Clave SSH
 > Algunas notas en el proceso de creación de clave SSH:
 - Ubicarse en la ruta de usuario.
 - Mantener el directorio por defecto.
@@ -109,7 +128,7 @@ $ git push origin master
 - `$ git remote set-url origin <url-ssh>` : Cambiar la url (de http hacia ssh) del repositorio asociado a origin.
 - `$ git pull origin main` : Traer cambios de la rama main.
 
-## Tags y versiones en GIT SCM y GitHub
+## 10. Tags y versiones en GIT SCM y GitHub
 - `$ git log --all --graph` : Mostrar cómo se han ido fusionando las ramas.
 - `$ git log --all --graph --decorate --oneline` : Mostrar cómo se han ido fusionando las ramas, pero más visual.
 - `$ alias tree="git log --all --graph --decorate --oneline"` : Crear alias para los comandos.
@@ -123,7 +142,7 @@ $ git push origin master
 - `$ git tag -d <tag-name>` : Eliminar tag local.
 - `$ git push origin :refs/tags/<tag-name>` : Eliminar tag remoto.
 
-## Ramas
+## 11. Ramas
 - `$ git show-branch`
 - `$ git show-branch --all`
 - `$ gitk` : Mostrar la historia de ramas en una plataforma visual.
@@ -135,14 +154,14 @@ $ git push origin master
 - `$ git branch -r` : Mostrar ramas remotas.
 - `$ git branch -a` : Mostrar todas las ramas (locales y remotas).
 
-## Rebase
+## 12. Rebase
 > El comando rebase es una mala práctica, nunca se debe usar. Con rebase puedes recoger todos los cambios confirmados en una rama y ponerlos sobre otra.
 
 - `$ git checkout <branch-from-rebase>` : Cambiar a la rama sobre la que queremos agregar los cambios confirmados.
 
 - `$ git rebase <branch-to-rebase>` : Aplicar rebase para recoger los cambios de la rama que queremos.
 
-## Git Stash
+## 13. Git Stash
 - `$ git stash` : Guardar cambios en el temporal.
 - `$ git stash list` : Mostrar lista de WIP (work in progress).
 
@@ -152,34 +171,34 @@ $ git push origin master
 - `$ git stash branch <branch-name>` : Salvar los cambios del stash en una rama aparte.
 - `$ git stash drop` : Eliminar el stash.
 
-## Git Clean
+## 14. Git Clean
 - `$ git clean --dry-run` : Mostrar los archivos que se borrarán, que no forman parte importante del proyecto.
 - `$ git clean -f` : Borrar los archivos listados al ejecutar `$ git clean --dry-run`.
 
-## Git Cherry Pick
+## 15. Git Cherry Pick
 > cherry pick permite traer una confirmación (commit) de otra rama y modificar la historia de la rama actual.
 
 - `$ git log --oneline` : Obtener el commit-id o hash.
 - `$ git cherry-pick <commit-id>` : Obtener commit de otra rama.
 
-## Git Amend
+## 16. Git Amend
 > amend se utiliza cuando quiere modificarse el último commit más reciente y combinar los cambios en lugar de crear un nuevo commit.
 
 - `$ git commit --amend`
 - `$ git commit --amend --no-edit` : Amend para conservar el mensaje del commit original.
 
-## Git Reset y Reflog
+## 17. Git Reset y Reflog
 - `$ git reflog` : Mostrar los HEAD del historial de cambios hasta ahora (copiamos el commit-id o hash).
 - `$ git reset --hard <commit-id>` Retornar a la confirmación (commit) del hisotrial que indiquemos.
 
-## Git Grep y Log
+## 18. Git Grep y Log
 - `$ git grep <ocurrencia>` : Buscar la ocurrencia en el repositorio.
 - `$ git grep -n <ocurrencia>` : Indica el archivo y la linea donde se da la ocurrencia.
 - `$ git grep -c <ocurrencia>` : Indica la cantidad de veces que se da la ocurrencia en un archivo.
 - `$ git grep -c "<p>"` : Entre comillas para evitar error de sintaxis.
 - `$ git log -S <ocurrencia-message>` : Buscar los commits por la ocurrencia de la palabra en los mensajes de confirmación.
 
-## Comandos y recursos colaborativos
+## 19. Comandos y recursos colaborativos
 - `git shortlog` : Ver cuántos commits a hecho los miembros del equipo.
 - `git shortlog -sn` : Las personas que han hecho ciertos commits.
 - `git shortlog -sn --all` : Todos los commits (también los borrados).
