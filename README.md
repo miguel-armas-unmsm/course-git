@@ -68,8 +68,9 @@ Curso de GIT SCM y GitHub
 - Para editar el mensaje de commit presionar `ESC` seguido de `i`
 - Para guardar el commit presionar `ESC` seguido de `shift` + `z` + `z`
 
-- `$ git clone <url-repository>` : Clonar un repositorio manteniendo el nombre del directorio por defecto.
-- `$ git clone <url-repository> <directory-name>` : Clonar un repositorio y cambiar el nombre del directorio.
+- `$ git clone <url-repository>` : Clonar repositorio manteniendo el nombre del directorio por defecto.
+- `$ git clone <url-repository> <directory-name>` : Clonar repositorio y cambiar el nombre del directorio.
+- `$ git clone -b <branch-name> <url-repository> <directory-name>` : Clonar repositorio, cambiar rama y nombre del directorio.
 - `$ git log <filename.txt>` : Mostrar el historial de cambios del archivo *filename.txt*.
 - `$ git pull` : Funciona como `$ git fetch` + `$ git merge`
 
@@ -78,7 +79,7 @@ Curso de GIT SCM y GitHub
 - `$ git diff <commit-id1> <commit-id2>` : Mostrar las diferencias entre un commit y otro.
 
 ## 6. Versiones
-- `$ git reset <commit-id> --hard` : Volver a la versión anterior.
+- `$ git reset <commit-id> --hard` : Deshacer git add .
 - `$ git reset <commit-id> --soft` : Volver a la versión anterior, pero manteniendo el staging area.
 - `$ git log --stat` : Ver los cambios específicos hechos en cada commit.
 - `$ git checkout <commit-id> <filename.txt>` : Regresar el archivo al estado del commit.
